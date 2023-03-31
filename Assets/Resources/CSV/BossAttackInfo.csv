@@ -1,0 +1,4 @@
+skill_Name_En,skill_Name_Kor,mon_Index,skill_ID,skill_Type,skill_Targetyp,skill_Range,skill_dmg,skill_MP,skill_Cool,skill_atkTime,skill_continueTime,skill_AtkCount,skill_DiffObj,skill_ThrowObj
+USwing,위에서 베기,mon_06_01,3060101,2,1,5,3,5,5,2,0,1,0,0
+SSwing,옆으로 베기,mon_06_01,3060102,2,1,5,3,5,5,2,0,1,0,0
+Guided_Magic_Bullet,유도 마력탄,mon_06_01,3060103,2,1,10,10,20,10,3,0,1,0,1

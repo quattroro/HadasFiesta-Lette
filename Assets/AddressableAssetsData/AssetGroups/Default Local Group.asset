@@ -1,0 +1,362 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 8807c9aa6b2f42a4f96931cf55151df0
+  m_SerializeEntries:
+  - m_GUID: 2cea6e09986925042bec2ee2d66b0608
+    m_Address: Loading_Treasure_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4acec5c51cc56bc4d9c940a3912830ed
+    m_Address: LoadingDoor2_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f4cb12f6944347b48b7243939a666ee7
+    m_Address: Loading_Door1_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f1113decc288e33498af995eb5b8da18
+    m_Address: LoadingImage1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f1ad1e2213f043e419b0bc7bd899657d
+    m_Address: GameEndUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 831ad861e05a52143a27b9759886a44e
+    m_Address: 123
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a7d3d992b3b91584fbf783331cf06867
+    m_Address: Boss_HP_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e9bf9e01a8fa2a549b1dfd61d1a19c06
+    m_Address: Boss_HP_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f39d6e07d422dbc408da3a237d1f4a52
+    m_Address: Boss_HP_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c697cf39c12967d478b302eced63b088
+    m_Address: Estus
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9b6bf6a2a01d4ee4cb60118a7b3e0647
+    m_Address: Estus_Flask-removebg-preview
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 99aa9bf818145774887248250c7b5ffe
+    m_Address: Estus_Flask
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ef9adcb83ee8b4b4abcc14bab4cfe8ef
+    m_Address: hp
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 555ed72dce2eb4f47b7078c21e3150de
+    m_Address: Loading_Background
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e81ee0bc4fc59e84a986d8c9f0902129
+    m_Address: LoadingImage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 18fc3456084f2a4419c941e53e4a3710
+    m_Address: LoadingImage2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8e64826f0c046d54090208d8bd5a72e9
+    m_Address: LoadingImage3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 542f7c4bebb847847a8f7bf40195051d
+    m_Address: LoadingImage4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7bf72f185bf722c46a8a7ad317b33a10
+    m_Address: LoadingImage5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5790f982a4b5b37479c88675faeb27ad
+    m_Address: LoadingImage7
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 285157e99accd60418fe09f61e2ceaa4
+    m_Address: LoadingImage8
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 619e7a645100f634289a23e7c61d6d70
+    m_Address: LoadingImgae6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e62b833e49f63134cb15ef813f828f5e
+    m_Address: LoadingText
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9e2e4f7dbe0df2a41809d781f37a0ab9
+    m_Address: menu_frame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 52080a7d057169d4da1933e6c4a51982
+    m_Address: Preferences_icon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d78830cbc79147840883d0705d2e7ffb
+    m_Address: recovery
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b48e87d8be767e9489680fa682a9f6d4
+    m_Address: recovery_frame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 617dd5e9f9e709d49be3af5f3266d788
+    m_Address: rod
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 97f1ccf31446f334bb3a1f30c0fb263d
+    m_Address: sound_frame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ec9d24828dddb004b8aa0114af583aca
+    m_Address: stamina
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f59d57c283489694a94d2f2080f15ec0
+    m_Address: switch
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8a0c2ade089d4c44fbdf861f7bcd7be6
+    m_Address: Eff7_Slash
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 63deea9db8ab27a45b7b53ac78c832cf
+    m_Address: SwordHitRed
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 14f18984a3742944aabf5ed777a2fad3
+    m_Address: SwordHitRedLegacy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a1fe4a2fbd2d4e44b98c58a3463c5cc3
+    m_Address: Boss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 39b88489431d8fc4aaa18fe2deb50d00
+    m_Address: Boss_Arrow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 82e50146481e6b440911b72b4be125dc
+    m_Address: Boss_HP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 540a2e88dbef67c4f85cb779a44d1f2d
+    m_Address: ButtonListner
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f2c73200962aea749bf4beaa8acf288a
+    m_Address: AssetsEnemy HpBar SliderResources_moved/Prefabs/Enemy HpBar Slider.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6f95e6b4d87912f4caa1a02676746b2a
+    m_Address: Estust
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 16e50229ff23d7840b95134739f65244
+    m_Address: FriendPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a5dcc9ee26d52ef4bafda2e16bf1678e
+    m_Address: Hpbar
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b2b3853493b9df04186df716e930fba1
+    m_Address: IngameOption
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bf1dc5f18c9584f479a1439400583b7f
+    m_Address: Inven
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cd50b0e4064e6e54c804fbde7eca98b8
+    m_Address: MainOption
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a62eff40c92cd01488863fa5149d79a1
+    m_Address: OptionSetting
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e9289f49a91d21843baaa311416ffd7f
+    m_Address: PlayerCharacter
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a73e9b11aa9476f42b16d5a4710e62be
+    m_Address: PlayerUIPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9f34ce56d0dbacb4fbe722cabb58ec95
+    m_Address: PostProcessing_Boat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 07f251844457e2a428b832b354a15f56
+    m_Address: PostProcessing_Stage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5b1046b036fdcd8439b80722d3fc4520
+    m_Address: Skeleton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 052d19923ca2a2240906b07b43731c27
+    m_Address: Skill01Effectpos
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cc8884be57bcf624684c43620abc4fec
+    m_Address: StartUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5e452b9fd9cc1884ca2d1fe458df33d9
+    m_Address: UIBar
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9efca6b87f1cc7644b8f353580293741
+    m_Address: Loading_tip_deck
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1b9d42fd839349e4eab508252b594625
+    m_Address: BoatData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 074b2f3d490a6a141b4d60435dbf2d36
+    m_Address: LoadingData_Boss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4e78613c82e7fcb4eb612f4f30801638
+    m_Address: LoadingData_Ending
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dfb0988ee23e47546a4371042470523b
+    m_Address: LoadingData_Start
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fa3ff36ead8f3bc4fa9358cfece333aa
+    m_Address: TestGameData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dedf70d4c324d8248b76c3c5c5d3e5b3
+    m_Address: Attack01Effectpos
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e9324ad35235bea4383d9abd43c1b650
+    m_Address: Attack02Effectpos
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 18c1022e566cc754ea2fcb3ad4fdd9c0
+    m_Address: Attack03Effectpos
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bd9cbf3a6ae77524788b4bbdb5422498
+    m_Address: SwordHitRedCritical
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4889039938a567444827eafcfbc2b267
+    m_Address: SwordHitRed
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 78905dabd1e15854fbe40bf8cd43aae9
+    m_Address: LoadingRestart
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 21b350ed9742ba141941a01b85b59daa
+    m_Address: BossRestartGameData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fabaa9e759631544396ae7bc7389530e
+    m_Address: RunEnd_A_Transition
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0f84c922fbf9d8f42b24662c98e66dbe
+    m_Address: RunStart_A_Transition
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e1d5b8559c4648c419958351ca0dcfbd
+    m_Address: Run
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - AnimationTransition
+  - m_GUID: 54586f9b33e3ba546905d045f7d1631f
+    m_Address: Minimap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3cb8b7f9c54b2e0469c3e2b41c662cf0
+    m_Address: Spider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 02f36df5dc2d4da4da06be6b63b1a7fc
+    m_Address: Eff8
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ee916e3756aa61a479b65260c592a31e
+    m_Address: BoxColl
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b4db3adc6d6e8f740bdc985ad4338617
+    m_Address: SphereColl
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5e28a61af45b2644ba6ff108d0f143e5
+    m_Address: ForestDemon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 45b361ccfa35a7243a7505f7100ce548
+    m_Address: ForestPlant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 19025913ec7d5dc4392b158a8a99730a
+    m_Address: Skeleton_Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4187ffc6f29ae4947b47ae09bbb3c73b
+    m_Address: Tutorial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a6a0c9438a1e01842ad5ac2ed109fdfe
+    m_Address: Eff1_Left
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6ca21476c52d1054b8588cfe7b2b0208
+    m_Address: Eff1_Right
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c18f6c843c8b61c4bb060987abc71043
+    m_Address: WeaponColl
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 08a0ab868038ac547bc8beb06751db6a
+    m_Address: SkillPreviewPlane
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8e6ea88d207a90c40bf4d680909a27f5
+    m_Address: Flaming
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 003d5bb4252c8ac4688402a1493995dd, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5889bf49ca5d57d42beb2ab7027f74b6, type: 2}
+    - {fileID: 11400000, guid: 9a716133c9c5c354bbdfad79696008e1, type: 2}

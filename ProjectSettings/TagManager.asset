@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Ground
+  - Fire
+  - Weapon
+  - Box
+  - FxTemporaire
+  - Effect
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - Wall
+  - PlayerAttack
+  - Boss
+  - Minimap
+  - Stairs
+  - PostProcessing
+  - Player
+  - TextUI
+  - Unwalkable
+  - Map
+  - Fog
+  - Maker
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 958901939
+    locked: 0
+  - name: TextUI
+    uniqueID: 4118170757
+    locked: 0

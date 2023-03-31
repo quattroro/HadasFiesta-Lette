@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 2935321230
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: testbundle_monster
+      Dependencies: {}

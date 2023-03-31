@@ -1,0 +1,56 @@
+ManifestFileVersion: 0
+CRC: 1523296819
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e68990234858e01572f3cf60ec86d781
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1e856871c6a6c3f2961e2a47ecbb6c97
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: c6e76a5900897c44bac6d60150c0e467, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 98484c834c3697f46a846e032bd7c3ba, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources_moved/Prefabs/susu.prefab
+- Assets/Resources_moved/Prefabs/Susu_.prefab
+Dependencies: []

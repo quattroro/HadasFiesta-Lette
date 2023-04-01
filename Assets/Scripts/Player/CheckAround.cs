@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-/*캐릭터 주변의 콜라이더들을 검사
-  1. 현재 나의 발 밑에 바닥이 있는지
-  2. 현재 나의 진행 방향 앞에 벽이 있는지
-  3. 내가 가야할 곳의 각도*/
-
-
-//정면이 막히면 단차 높이 판단한다.
-//캐릭터의 살짝 앞에서 위에서 아래로 레이를 발사
-//출돌 지점의 y위치에 따라 높이를 판단
-
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///캐릭터가 현재 바닥에 닿아있는지, 캐릭터의 앞이 벽으로 막혀있는지
+///캐릭터가 현재 서있는 바닥의 각도, 앞의 벽의 각도, 앞에 있는 벽이 계단인지 등등을 검사한다.
+///FixedUpdate를 통해 수행된다
+/////////////////////////////////////////////////////////////////////
 
 public class CheckAround : MonoBehaviour
 {
@@ -47,6 +44,8 @@ public class CheckAround : MonoBehaviour
 
 
     public float testhitangle;
+
+    //앞을 검사한다.
     public void CheckFront()
     {
         if (movecom == null)
@@ -58,9 +57,6 @@ public class CheckAround : MonoBehaviour
         curval.CurFowardSlopAngle = 0;
         curval.IsFowordBlock = false;
 
-        //Vector3 temp = new Vector3(WorldMove.x, 0, WorldMove.z);
-        //temp = com.FpRoot.forward /*+ Vector3.down*/;
-        //NavMesh.Raycast()
 
         curval.IsStep = false;
 
@@ -156,6 +152,7 @@ public class CheckAround : MonoBehaviour
     //}
 
 
+    //바닥을 검사한다.
     public void CheckGround()
     {
         if (movecom == null)
@@ -216,17 +213,9 @@ public class CheckAround : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(Capsulebottomcenter, CapsuleCol.radius);
-        Gizmos.DrawWireSphere(Capsuletopcenter, CapsuleCol.radius);
+    
 
-
-
-    }
-
-    private void Update()
+    private void FixedUpdate()
     {
         CheckFront();
         CheckGround();

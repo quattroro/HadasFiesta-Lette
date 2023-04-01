@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-//애니메이션 이벤트들을 관리
-//애니메이션 이벤트에 해당 함수들 OnBeginEventString, OnMidEventString, OnEndEventString 을 등록해주고
-//각 이벤트들의 대리자에 실행하고자 하는 함수를 AddEvent(beginCallback begin, midCallback mid, endCallback end) 함수를 이용해 연결시켜주면 이벤트가 실행되면 해당 함수가 실행됨
+
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///애니메이션 이벤트들을 관리
+///각 이벤트들의 대리자에 실행하고자 하는 함수를 AddEvent(beginCallback begin, midCallback mid, endCallback end) 함수를 이용해
+/// 연결시켜주면 자동으로 클립들에 이벤트를 생성 해주고 연결해준다. 그러면 해당 애니메이션이 실행되고 해당 이벤트가 실행되면 해당 함수가 실행됨
+/////////////////////////////////////////////////////////////////////
+
 
 public class AnimationEventSystem : MonoBehaviour
 {
@@ -116,38 +124,6 @@ public class AnimationEventSystem : MonoBehaviour
         string _clipName;
         AnimationEvent _event;
     }
-
-    //public void AddEvent(string clipname, float time, CallBackEvent _event)
-    //{
-    //    AnimationEventInfo eventinfo = new AnimationEventInfo();
-    //    AnimationEvent aevent;
-    //    aevent = new AnimationEvent();
-    //    aevent.time = time;
-    //    aevent.functionName = "OnAnimationEvent";
-    //    aevent.stringParameter = clipname;
-
-    //    animator.m_clips[clipname].AddEvent(aevent);
-    //    //eventinfo
-
-    //    if (EventInvokers.ContainsKey(clipname))
-    //    {
-    //        EventInvokers[clipname].Add(_event);
-    //    }
-    //    List<CallBackEvent> list = new List<CallBackEvent>();
-
-    //    EventInvokers.Add(clipname,)
-    //}
-
-
-    //public void AddTempletEvent(KeyValuePair<string, beginCallbackT<Object>> begin, KeyValuePair<string, midCallback> mid, KeyValuePair<string, endCallback> end)
-    //{
-    //    if (begin.Key != null)
-    //        BeginEventInvokers.Add(begin.Key, begin.Value);
-    //    if (mid.Key != null)
-    //        MidEventInvokers.Add(mid.Key, mid.Value);
-    //    if (end.Key != null)
-    //        EndEventInvokers.Add(end.Key, end.Value);
-    //}
 
    
     public void OnAnimationEvent(string s_val)

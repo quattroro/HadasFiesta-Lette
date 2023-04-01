@@ -4,9 +4,18 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 
-//게임 실행중 생성되고 파괴되는 모든 리로스들의 생성과 파괴를 담당한다.
-//생성과 파괴는 Addressable을 이용
-//오브젝트 풀링 설정 가능하도록
+
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///게임 실행중 생성되고 파괴되는 모든 리소스들의 생성과 파괴를 담당합니다.
+///Addressable Asset System을 사용하여 리소스들을 관리 합니다.
+///오브젝트 풀링을 구현하고 오브젝트 풀링기능을 사용할 수 있도록 구현했습니다.
+/////////////////////////////////////////////////////////////////////
+
+
 
 public class ResourceCreateDeleteManager : Singleton<ResourceCreateDeleteManager>
 {
@@ -15,9 +24,6 @@ public class ResourceCreateDeleteManager : Singleton<ResourceCreateDeleteManager
     Dictionary<string, List<GameObject>> objlist;
 
     //어드레서블로 로드 & 생성
-
-    //화면에 3개 이상 생성되는 오브젝트는 오브젝트 풀링을 사용
-
     public T InstantiateObj<T>(string adressableName) where T:class
     {
         //일단 해당
@@ -31,16 +37,13 @@ public class ResourceCreateDeleteManager : Singleton<ResourceCreateDeleteManager
         }
 
         T resulttype = result.GetComponent<T>();
-        Debug.Log("타입" + resulttype.GetType().ToString());
 
         if(poolManager.IsPooling(adressableName))//풀링을 하고 있는 객체면 풀링에서 꺼내서 주고
         {
-            Debug.Log("풀링생성");
             return poolManager.GetObject<T>(adressableName);
         }
         else//아니면 그냥 생성해준다.
         {
-            Debug.Log("그냥 생성");
             temp = Addressables.InstantiateAsync(adressableName);
             result = temp.WaitForCompletion();
 
@@ -53,6 +56,18 @@ public class ResourceCreateDeleteManager : Singleton<ResourceCreateDeleteManager
 
     }
 
+    public T LoadObjInfo<T>(string adressableName) where T : class
+    {
+        //일단 해당
+        var temp = Addressables.LoadAssetAsync<GameObject>(adressableName);
+        GameObject result = temp.WaitForCompletion();
+
+        if (typeof(T) == typeof(GameObject))
+            return result as T;
+        else
+            return result.GetComponent<T>();
+    }
+
     public void DestroyObj<T>(string adressableName, GameObject obj)
     {
         if (obj == null)
@@ -60,12 +75,10 @@ public class ResourceCreateDeleteManager : Singleton<ResourceCreateDeleteManager
 
         if (poolManager.IsPooling(adressableName))//풀링을 하고 있는 객체면 풀링에서 꺼내서 삭제
         {
-            Debug.Log("풀링 돌려줌");
             poolManager.ReturnObject(adressableName, obj);
         }
         else
         {
-            Debug.Log("그냥삭제");
             Addressables.ReleaseInstance(obj);
         }
     }
@@ -84,67 +97,30 @@ namespace MyObjectPool
     {
         public Dictionary<string, ObjectPool> PoolDic = new Dictionary<string, ObjectPool>();
 
-        //public bool IsPooling(string typestring)
-        //{
-        //    return PoolDic.ContainsKey(typestring);
-        //}
+      
 
         public bool IsPooling(string adressableName)
         {
             return PoolDic.ContainsKey(adressableName);
         }
 
-        ////타입으로 관리
-        //public void CreatePool<T>(string adressableName,int poolsize=10) 
-        //{
-        //    //string typename = obj.GetType().Name;
-        //    ObjectPool pool = null;
-
-        //    //이미 해당 타입의 풀이 있는지 확인하고 없으면 만들어 준다.
-        //    PoolDic.TryGetValue(typeof(T).Name, out pool);
-        //    Debug.Log(typeof(T).Name +"풀 생성 들어옴");
-
-        //    if(pool==null)
-        //    {
-        //        Debug.Log(typeof(T).Name + "풀 생성 시도");
-        //        pool = new ObjectPool(adressableName, typeof(T), poolsize);
-        //        PoolDic.Add(typeof(T).Name, pool);
-        //    }
-
-        //}
-
         //어드레서블 네임으로 관리
         public void CreatePool<T>(string adressableName, int poolsize = 10)
         {
-            //string typename = obj.GetType().Name;
             ObjectPool pool = null;
 
             //이미 해당 타입의 풀이 있는지 확인하고 없으면 만들어 준다.
             PoolDic.TryGetValue(adressableName, out pool);
-            Debug.Log(adressableName + "풀 생성 들어옴");
 
             if (pool == null)
             {
-                Debug.Log(adressableName + "풀 생성 시도");
                 pool = new ObjectPool(adressableName, typeof(T), poolsize);
                 PoolDic.Add(adressableName, pool);
             }
 
         }
 
-        //public T GetObject<T>()
-        //{
-        //    ObjectPool pool = null;
-        //    PoolDic.TryGetValue(typeof(T).Name, out pool);
-
-        //    if(pool!=null)
-        //    {
-        //        return pool.GetObj().GetComponent<T>();
-        //    }
-
-        //    Debug.LogError("존재하지 않는 타입");
-        //    return default(T);
-        //}
+  
 
         //네임으로 관리
         public T GetObject<T>(string adressableName) where T : class
@@ -164,19 +140,6 @@ namespace MyObjectPool
             return default(T);
         }
 
-        //public void ReturnObject(System.Type _type, GameObject obj)
-        //{
-        //    ObjectPool pool = null;
-
-        //    bool flag = PoolDic.ContainsKey(_type.Name);
-        //    //
-
-        //    if (flag)
-        //    {
-        //        PoolDic.TryGetValue(_type.Name, out pool);
-        //        pool.ReturnObj(obj);
-        //    }
-        //}
         //네임으로 관리
         public void ReturnObject(string adressableName, GameObject obj)
         {
@@ -195,18 +158,11 @@ namespace MyObjectPool
     }
 
 
-    public class ObjectPoolBase
-    {
-
-
-
-    }
-
 
 
     //풀은 게임오브젝트로 관리
     //객체는 기본적으로 10개 생성
-    public class ObjectPool/*<T>:ObjectPoolBase*/
+    public class ObjectPool
     {
         //T _poolObj;
         string _adressableName;
@@ -226,10 +182,6 @@ namespace MyObjectPool
 
 
             CreateObj(_poolSize);
-
-            Debug.Log(_type.Name + "풀 생성 완료");
-
-
 
         }
 

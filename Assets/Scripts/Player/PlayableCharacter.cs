@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-//플레이어블 캐릭터의 모든것을 관리한다.
-//1. 컴포넌트들 관리, 기존 ComponentManager가 하던 일을 그대로 실행
-//2. 플레이어 데이터를 받아와서 각각의 컴포넌트 들에게 각각 필요한 데이터들을 넘겨준다.
+
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///플레이어블 캐릭터의 모든것을 관리하는 클래스 입니다.
+///하는일
+///1. 컴포넌트들 관리, 기존 ComponentManager가 하던 일을 그대로 실행
+///2. 플레이어 데이터를 받아와서 각각의 컴포넌트 들에게 각각 필요한 데이터들을 넘겨준다.
+///3. 각종 초기화, 연결 작업들
+///4. 외부에서 캐릭터의 변수에 접근이 필요할때 해당 클래스로바로 접근이 가능하도록
+/////////////////////////////////////////////////////////////////////
+
 public class PlayableCharacter : MonoBehaviour
 {
+    //캐릭터의 FSM이 가지는 캐릭터의 상태들
     public enum States
     {
         Idle,
@@ -26,7 +38,6 @@ public class PlayableCharacter : MonoBehaviour
     [Header("================BaseComponent================")]
     public BaseComponent[] components = new BaseComponent[(int)CharEnumTypes.eComponentTypes.comMax];
 
-    [SerializeField]
     public BaseStatus status;
 
     [Header("================캐릭터 UI================")]
@@ -126,17 +137,12 @@ public class PlayableCharacter : MonoBehaviour
             else
                 CharacterUIPanel = UIManager.Instance.Prefabsload(Global_Variable.CharVar.CharacterUI, Canvas_Enum.CANVAS_NUM.player_cavas).GetComponent<UICharacterInfoPanel>();
 
-            //CharacterUIPanel = ResourceCreateDeleteManager.Instance.InstantiateObj<UICharacterInfoPanel>(Global_Variable.CharVar.CharacterUI);
         }
 
 
         //UI 연동 부분
         status.Init(CharacterUIPanel);
-
-        
-
         CharacterUIPanel.transform.localPosition = status.player_UIPos;
-
         if(UIManager.Instance!=null)
         {
             GameObject tempui = UIManager.Instance.Canvasreturn(Canvas_Enum.CANVAS_NUM.start_canvas);
@@ -648,55 +654,5 @@ public class PlayableCharacter : MonoBehaviour
 
     }
     #endregion
-    //public enum States
-    //{
-    //    Idle,
-    //    Walk,
-    //    Move,
-    //    Attack,
-    //    Rolling,
-    //    Guard,
-    //    GuardStun,
-    //    OutOfControl,
-    //}
-
-    //#region StateMachine
-    //public IEnumerator Walk_Enter()
-    //{
-    //    float len = animator.GetClipLength("walk_start_L");
-    //    animator.Play("walk_start_L");
-    //    Debug.Log("walk 사전동작 실행");
-    //    yield return new WaitForSeconds(len);
-    //    Debug.Log("walk 사전동작 끝 본 동작 실행");
-    //    animator.Play("strafe_walk_strafe_front");
-    //}
-
-    //public IEnumerator Walk_Exit()
-    //{
-    //    float len = animator.GetClipLength("walk_stop_L");
-    //    animator.Play("walk_stop_L");
-    //    Debug.Log("walk 끝동작 실행");
-    //    yield return new WaitForSeconds(len);
-    //}
-
-    //public IEnumerator Run_Enter()
-    //{
-    //    float len = animator.GetClipLength("run_start_L");
-    //    animator.Play("run_start_L");
-    //    Debug.Log("run 사전동작 실행");
-    //    yield return new WaitForSeconds(len);
-    //    Debug.Log("run 사전동작 끝 본 동작 실행");
-    //    animator.Play("move_run_01");
-    //}
-
-    //public IEnumerator Run_Exit()
-    //{
-    //    float len = animator.GetClipLength("run_stop_L");
-    //    animator.Play("run_stop_L");
-    //    Debug.Log("run 끝동작 실행");
-    //    yield return new WaitForSeconds(len);
-    //}
-
-    //#endregion
-
+  
 }

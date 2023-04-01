@@ -2,22 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
-///ì¡°ë¯¼ìµ ì‘ì—…
-///ì˜¤ë¸Œì íŠ¸ê°€ ìƒì„±ë˜ëŠ” ê³µê²©ë“¤ì˜ ê¸°ë³¸ í´ë˜ìŠ¤
-///ì¥íŒìƒì„± ê³µê²©, íˆ¬ì‚¬ì²´ ê³µê²© ë“±ì´ ìˆìŒ
+///Á¶¹ÎÀÍ ÀÛ¾÷
+///¿ø·¡ CSV·Î µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ô¾úÁö¸¸
+///±âÈ¹ÀÇ ¿äÃ»À¸·Î ÀÎ½ºÆåÅÍ¿¡¼­ º¯°æ °¡´ÉÇÏµµ·Ï
+///½ºÆ®¸³ÅÍºí ¿ÀºêÁ§Æ®·Î ½ºÅ³Á¤º¸¸¦ ¼öÁ¤ÇÏµµ·Ï ÇÔ
 /////////////////////////////////////////////////////////////////////
 
-public class AttackObject : MonoBehaviour
+[CreateAssetMenu(fileName = "CharacterSkillInfoList", menuName = "Scriptable Object/CharacterSkillInfoList")]
+public class SkillInfos : ScriptableObject
 {
-    //í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œ ê³µê²©ì˜ ì •ë³´
-    //public Playable_Character.AttackInfo info;
-
-    //ì§€ì†ì‹œê°„
-    public float DurationTime;
-
-
-
+    public List<SkillInfo> skillInfoList;
 }

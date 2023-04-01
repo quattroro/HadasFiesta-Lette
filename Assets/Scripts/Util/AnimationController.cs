@@ -4,11 +4,22 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceLocations;
 
-//using UnityEditor.Animations;
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///애니메이션을 Unity에서 제공해주는 AnimatorController를 사용하지 않고
+///직접 Animator.CrossFade() 함수를 이용해서 제어하기 때문에
+///다양한 기능들을 제공하기 위한 클래스가 필요해짐
+///재생속도, 재생시간, 블렌딩속도 등등을 제어할수 있고
+///현재 Animator에 올라와 있는 모든 클립들의 정보를 얻을 수 있고,
+///애니메이션이 끝나고 자동으로 지정해준 함수가 호출될 수 도 있게 만들었습니다.
+/////////////////////////////////////////////////////////////////////
 
 /*사용할 모든 클립들이 등록되어있는 animation controller 가 연결된 animator 가 필요
   GetAnimationClips()를 이용하여 현재 등록된 클립들을 받아오든지, 직접 입력하던지 해서 재생을 원하는 클립의 이름을 알아와서
   Play(클립이름, 재생속도, 재생시간, 블렌딩속도) 함수를 이용해 재생*/
+
 public class AnimationController : MonoBehaviour
 {
     [Header("확인용")]

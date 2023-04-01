@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//move에서 사용하는 변수들
-//해당 값이 변경되면 해당되는 state 변경이 필요
-//여기에서 판단할 경우들
-//1. 현재 움직일 수 있는지 없는지
-//2. 현재 달릴 수 있는지 없는지
-//3. 회피가 가능한지
-//
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///캐릭터의 현재 세부적인 상태를 알려주는 클래스 
+///주로 Move를 담당하는 클래스에서 FSM의 대략적인 상태들 말고 세부적인 상태들의 정보가 
+///필요해서 추가로 제작하였음
+///현재 움직일 수 있는지 없는지
+///앞에 있는 벽이 계단인지 아닌지
+///회피가 가능한지
+///공격중인지
+///outofcontrol 상태인지
+///등등을 체크할 수 있다.
+/////////////////////////////////////////////////////////////////////
+
+
 [System.Serializable]
 public class CurState
 {
@@ -140,30 +150,6 @@ public class CurState
     }
     
     
-    //public bool IsSlip
-    //{
-    //    get
-    //    {
-            
-    //    }
-
-    //    set
-    //    {
-    //        isSlip = value;
-    //    }
-    //}
-
-    //public bool IsAttacked { get => isAttacked; set => isAttacked = value; }
-    //public bool IsOutofControl { 
-    //    get
-    //    {
-    //        return isOutofControl;
-    //    }
-    //    set
-    //    {
-    //        isOutofControl = value;
-    //    }
-    //}
     public bool IsRolling { 
         get
         {

@@ -7,23 +7,14 @@ using UnityEngine;
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
-///ì¡°ë¯¼ìµ ì‘ì—…
-///íˆ¬ì‚¬ì²´ ê³µê²© ì˜¤ë¸Œì íŠ¸
-///íˆ¬ì‚¬ì²´ ê³µê²© ìŠ¤í‚¬ì€ ì´í›„ ì¶”ê°€ ì˜ˆì •
+///Á¶¹ÎÀÍ ÀÛ¾÷
+///¿ø·¡ CSV·Î µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ô¾úÁö¸¸
+///±âÈ¹ÀÇ ¿äÃ»À¸·Î ÀÎ½ºÆåÅÍ¿¡¼­ º¯°æ °¡´ÉÇÏµµ·Ï
+///½ºÆ®¸³ÅÍºí ¿ÀºêÁ§Æ®·Î °ø°İÁ¤º¸¸¦ ¼öÁ¤ÇÏµµ·Ï ÇÔ
 /////////////////////////////////////////////////////////////////////
 
-public class ProjectileObj : MonoBehaviour
+[CreateAssetMenu(fileName = "CharacterAttackInfoList", menuName = "Scriptable Object/CharacterAttackInfoList")]
+public class AttackInfos : ScriptableObject
 {
-    //ë°ë¯¸ì§€ íŒì • ì£¼ê¸°
-    public float DamageTime;
-
-    public string MonsterTag;
-
-    public SphereColl coll;
-
-    public void InitSetting(float _damageTime, string _monsterTag, SphereColl _coll)
-    {
-
-    }
-
+    public List<AttackInfo> attackInfoList;
 }

@@ -2,23 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///캐릭터의 무기에 붙어있을 콜라이더 스크립트
+///Colliders의 함수들을 캐릭터에 맞게 재정의해서 사용
+/////////////////////////////////////////////////////////////////////
+
 public class WeaponCollider : Colliders
 {
-    //string tagname;
-
-    //public delegate void CollFunction(Collider other);
-    //CollFunction _collFunction;
-
-    //public void SetCollitionFunction(CollFunction _function)
-    //{
-    //    _collFunction = _function;
-    //}
-
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    _collFunction(other);
-    //}
     public float HitAngle = 180.0f;
 
     public override void VirtualStart()
@@ -133,9 +127,6 @@ public class WeaponCollider : Colliders
                 }
             }
         }
-        
-
-        //if (other.transform.gameObject.CompareTag(targetTag))
             
     }
 

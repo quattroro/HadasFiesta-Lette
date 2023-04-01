@@ -2,63 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//레벨이 변할때마다 캐릭터 스탯 정보들을 받아와서 초기화 해준다.
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///캐릭터의 기본 스테이터스 정보 클래스
+///공격력, 방어력, 스테미나, 그로기값 등등 스텟정보들의 get set과
+///자동회복 시스템 등의 기능이 들어가 있다.
+/////////////////////////////////////////////////////////////////////
+
 public class BaseStatus:MonoBehaviour
 {
     [Header("=========================")]
     [Header("초기 세팅값")]
     [Header("이름")]
-    //캐릭터 이름
-    [SerializeField]
     public string character_Name;
+
     [Header("hp")]
-    //캐릭터 hp 총량
-    [SerializeField]
     public int player_HP;
 
     //캐릭터 방어력
-    [SerializeField]
     public int player_Def;
 
     [Header("스테미나 총량")]
-    //캐릭터 Stamina 총량
-    [SerializeField]
     public int player_Stamina;
 
     [Header("스테미나 자동 회복 시간")]
-    // Stamina 자동회복 시간 
-    [SerializeField]
     public int player_Stamina_Recovery_Time;
 
     [Header("스테미나 자동 회복 값")]
-    // Stamina 자동회복 값
-    [SerializeField]
     public int player_Stamina_Recovery_Val;
 
     [Header("그로기값 총량")]
-    //그로기값 최대치
-    [SerializeField]
     public int player_Groggy;
 
     [Header("그로기값 자동회복 시간")]
-    // 그로기값 자동회복 시간 
-    [SerializeField]
     public int player_Groggy_Recovery_Time;
 
     [Header("그로기값 자동회복 값")]
-    // 그로기값 자동회복 값
-    [SerializeField]
     public int player_Groggy_Recovery_Val;
 
     [Header("경직상태에 빠지는 그로기값 (누적값이 아니라 한번에 들어온 값으로 판단)")]
-    //경직 상태에 빠지는 그로기값
-    [SerializeField]
     public int player_Stagger_Groggy;
 
     [Header("경직상태에 빠지는 그로기값 (누적값으로 판단)")]
-    //다운 상태에 빠지는 그로기값
-    [SerializeField]
     public int player_Down_Groggy;
+
+    //MoveComponent로 이동
 
     ////캐릭터 움직임 속도
     //[SerializeField]
@@ -74,52 +65,34 @@ public class BaseStatus:MonoBehaviour
     //[SerializeField]
     //private float player_RotSpeed;
 
-    [SerializeField]
     public Vector2 player_UIPos;
 
 
     [Header("=========================")]
     [Header("자동 세팅 변경금지 <Status>")]
-    [SerializeField]
     private int curLevel;
-    [SerializeField]
     private float maxHP;
-    [SerializeField]
     private float curHP;
-    [SerializeField]
     private float maxStamina;
-    [SerializeField]
     private float curStamina;
-    [SerializeField]
     public float Damage;//공격력
-    [SerializeField]
     public float Defense;//방어력
-    [SerializeField]
     private float maxMP;
-    [SerializeField]
     private float curMP;
-    [SerializeField]
     public int CurExp;
-    [SerializeField]
     public int NextExp;
-    [SerializeField]
     private float maxGroggy;
-    [SerializeField]
     private float curGroggy;
 
 
 
-    [SerializeField]
     public Dictionary<string, CharacterInformation> CharacterDBInfoDic;
 
-    [SerializeField]
-    //private DataLoad_Save DBController;
     public UICharacterInfoPanel uiPanel;
 
     CorTimeCounter timecounter = new CorTimeCounter();
     delegate bool invoker(float val);
     
-
     IEnumerator CorSTMCount;
     IEnumerator CorSTMRecover;
 
@@ -140,6 +113,7 @@ public class BaseStatus:MonoBehaviour
 
     }
 
+    //레벨 시스템 폐지
     //public int CurLevel
     //{
     //    get
@@ -178,6 +152,7 @@ public class BaseStatus:MonoBehaviour
         set
         {
             maxHP = value;
+            //변경된 값을 UI에 반영
             uiPanel.HPBar.SetMaxValue(value);
             CurHP = maxHP;
         }
@@ -198,6 +173,7 @@ public class BaseStatus:MonoBehaviour
                 curHP = 0;
             }
 
+            //변경된 값을 UI에 반영
             uiPanel.HPBar.SetCurValue(curHP);
         }
     }
@@ -263,10 +239,9 @@ public class BaseStatus:MonoBehaviour
             {
                 curGroggy = 0;
             }
-            //uiPanel.HPBar.SetCurValue(value);
 
 
-            //그로기값이 있고
+            //그로기값이 0이 아니고 이미 회복중이 아니면 그로기 회복 코루틴을 실행시켜 준다.
             if (curGroggy != 0 && CorGroggyCount == null && CorGroggyRecover == null)
             {
                 CorGroggyCount = timecounter.Cor_TimeCounter(player_Groggy_Recovery_Time, GroggyRecoveryStart);
@@ -281,12 +256,9 @@ public class BaseStatus:MonoBehaviour
     {
         CurGroggy = CurGroggy + val;
 
-        //Debug.Log("그로기 증가 현재 그로기 : " + CurGroggy);
-
         //플레이어가 다운될정도의 그로기 값이 모이면 플레이어 다운
         if (CurGroggy>=player_Down_Groggy)
         {
-            //Debug.Log("그로기 증가로 다운 실행");
             CMoveComponent movecom = PlayableCharacter.Instance.GetMyComponent(CharEnumTypes.eComponentTypes.MoveCom) as CMoveComponent;
             movecom.KnockDown();
             return true;
@@ -295,19 +267,17 @@ public class BaseStatus:MonoBehaviour
         //들어온 그로기 값이 경직에 빠지게 하는 그로기값이면 경직
         if (val>=player_Stagger_Groggy)
         {
-            //Debug.Log("그로기 증가로 경직 실행");
             CMoveComponent movecom = PlayableCharacter.Instance.GetMyComponent(CharEnumTypes.eComponentTypes.MoveCom) as CMoveComponent;
             movecom.KnockBack();
 
             return true;
         }
 
-        
-
         if (CurGroggy == MaxGroggy)
         {
             return false;
         }
+
         return true;
     }
 
@@ -331,6 +301,8 @@ public class BaseStatus:MonoBehaviour
             CurStamina = maxStamina;
         }
     }
+
+
     public float CurStamina
     {
         get => curStamina;
@@ -405,7 +377,6 @@ public class BaseStatus:MonoBehaviour
 
     public void STMRecoveryStart()
     {
-        //Debug.Log("Staminarecover 시작");
         StopCoroutine(CorSTMCount);
         CorSTMCount = null;
 
@@ -415,7 +386,6 @@ public class BaseStatus:MonoBehaviour
 
     public void GroggyRecoveryStart()
     {
-        //Debug.Log("그로기 회복 시작");
         StopCoroutine(CorGroggyCount);
         CorGroggyCount = null;
 
@@ -428,15 +398,12 @@ public class BaseStatus:MonoBehaviour
 
         while(true)
         {
-            //Debug.Log($"{val}회복");
 
             if (!_invoker(val))
             {
-                //Debug.Log("회복 종료");
                 yield break;
             }
                 
-
             yield return new WaitForSeconds(1.0f);
         }
     }

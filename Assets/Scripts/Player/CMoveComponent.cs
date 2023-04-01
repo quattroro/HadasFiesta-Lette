@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//해야할 일 
-//상수화 할 상수들을 관리할 크래스 제작
-//curval 에서 확인
-//컬링 알아보기
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///캐릭터의 이동을 담당하는 클래스
+///경사로에서의 이동, 구르기, 걷기,달리기 절벽 떨어짐 등등의 움직임들 담당한다.
+///또한 자동이동에서 사용할 자동이동 기능도 포함 되어 있다.
+/////////////////////////////////////////////////////////////////////
+
+
 public class CMoveComponent : BaseComponent
 {
     public enum Direction
@@ -48,35 +54,35 @@ public class CMoveComponent : BaseComponent
     public class MoveOption
     {
         [Header("==================이동 관련 변수들==================")]
-        [SerializeField]
+        
         public float RotMouseSpeed = 10f;
-        [SerializeField]
+        
         public bool RightReverse = false;
 
 
 
-        [SerializeField]
+        
         [Range(0.0f,1.0f)]
         public float RotSpeed = 0.5f;
-        [SerializeField]
+        
         public float MoveSpeed;
-        [SerializeField]
+        
         public float RunSpeed;
-        [SerializeField]
+        
         public float MinAngle;
-        [SerializeField]
+        
         public float MaxAngle;
-        [SerializeField]
+       
         public float Gravity;//중력값(프레임단위로 증가시켜줄 값)
-        [SerializeField]
+        
         public float JumpPower = 120;//점프를 하면 해당 값으로 curgravity값을 바꿔준다.
-        [SerializeField]
+        
         public float JumpcoolTime = 1f;
-        [SerializeField]
+        
         public LayerMask GroundMask;
-        [SerializeField]
+        
         public float MaxSlop = 70;
-        [SerializeField]
+        
         public float SlopAccel;//(중력값과 같이 미끌어질때 점점증가될 값)
 
         public float MaxStep;
@@ -192,7 +198,7 @@ public class CMoveComponent : BaseComponent
     //public Vector3 rightleft;
     //public float ynext;
 
-    public Transform playerChestTr;
+    //public Transform playerChestTr;
 
 
     public Vector3 teststart;
@@ -202,6 +208,7 @@ public class CMoveComponent : BaseComponent
 
     void Start()
     {
+        //초기화들
         if (TryGetComponent<CheckAround>(out checkaround) == false)
         {
             gameObject.AddComponent<CheckAround>();
@@ -212,9 +219,9 @@ public class CMoveComponent : BaseComponent
         com.CapsuleCol = GetComponent<CapsuleCollider>();
         com.animator = GetComponentInChildren<AnimationController>();
 
-        if (playerChestTr == null)
-            playerChestTr = com.animator.animator.GetBoneTransform(HumanBodyBones.Head);
+        
 
+        //사용하는 애니메이션들에 이벤트들을 연결해 줍니다.
         eventsystem.AddEvent(new KeyValuePair<string, AnimationEventSystem.beginCallback>(null, null),0.0f,
                              new KeyValuePair<string, AnimationEventSystem.midCallback>(moveoption.KnockDownClip.name, KnockDownPause),1.0f,
                              new KeyValuePair<string, AnimationEventSystem.endCallback>(moveoption.KnockDownClip.name, KnockDownEnd),com.animator.GetClipLength(moveoption.KnockDownClip.name));
@@ -223,15 +230,16 @@ public class CMoveComponent : BaseComponent
                              new KeyValuePair<string, AnimationEventSystem.midCallback>(null, null), 1.0f,
                              new KeyValuePair<string, AnimationEventSystem.endCallback>(moveoption.KnockBackClip.name, KnockBackEnd), com.animator.GetClipLength(moveoption.KnockBackClip.name));
 
-        //eventsystem.AddEvent(new KeyValuePair<string, AnimationEventSystem.beginCallback>(moveoption.RollingClip.name, ActivateNoDamage),
-        //                     new KeyValuePair<string, AnimationEventSystem.midCallback>(null, null),
-        //                     new KeyValuePair<string, AnimationEventSystem.endCallback>(moveoption.RollingClip.name, DeActivateNoDamage));
-
-
+        
+        //기본 옵션 초기화들
         ChangePerspective();
         ShowCursor(false);
         LookAtFoward();
 
+
+
+        //if (playerChestTr == null)
+        //    playerChestTr = com.animator.animator.GetBoneTransform(HumanBodyBones.Head);
     }
 
     public void Stop()
@@ -246,47 +254,31 @@ public class CMoveComponent : BaseComponent
         if (dir == Direction.Front)
         {
             tempdir = new Vector3(0, 0, 1);
-            //Debug.Log("guardleft");
             com.animator.Play(moveoption.GuardFrontMoveClip, 1.5f);
         }
         else if (dir == Direction.Left)
         {
             tempdir = new Vector3(-1, 0, 0);
-            //Debug.Log("guardleft");
             com.animator.Play(moveoption.GuardLeftMoveClip, 1.5f);
         }
         else if (dir == Direction.Right)
         {
             tempdir = new Vector3(1, 0, 0);
-            //Debug.Log("guardright");
             com.animator.Play(moveoption.GuardRightMoveClip, 1.5f);
         }
         else
         {
             tempdir = new Vector3(0, 0, -1);
-            //Debug.Log("guardback");
             com.animator.Play(moveoption.GuardBackMoveClip, 1.5f);
         }
         tempmove = com.TpCamRig.TransformDirection(tempdir);
 
-        //tempmove = tempmove * moveoption.GuardMoveSpeed * Time.deltaTime;
         tempmove.y = 0;
 
         Move(tempmove, moveoption.GuardMoveSpeed);
-        //com.CharacterRig.velocity = new Vector3(tempmove.x, CurGravity, tempmove.z);
-
     }
 
-    ////duration 시간동안 목표위치로 이동한다.
-    //public void DoMove(Vector3 destpos, float duration)
-    //{
-    //    Vector3 startpos = this.transform.position;
-    //    Vector3 directon = destpos - startpos;
-
-    //    float speed = directon.magnitude / duration;
-
-    //    StartCoroutine(CorDoMove(startpos, destpos, duration));
-    //}
+    
 
     IEnumerator automovestopcor = null;
 
@@ -295,7 +287,6 @@ public class CMoveComponent : BaseComponent
         Vector3 startpos = this.transform.position;
         Vector3 directon = destpos - startpos;
 
-        //float speed = directon.magnitude / duration;
         PlayableCharacter.Instance.SetState(PlayableCharacter.States.AutoMove);
 
         StartCoroutine(CorDoMove(destpos,moveTime, invoker));
@@ -343,10 +334,11 @@ public class CMoveComponent : BaseComponent
             return com.TpCam.GetComponent<Camera>();
     }
 
+
+
     //걷기면 걷기, 달리기면 달리기 둘 중에 선택해서 움직이고 
     public IEnumerator CorDoMove(Vector3 start, Vector3 dest, Invoker invoker = null)
     {
-        //float runtime = 0.0f;
         teststart = start;
         testend = dest;
 
@@ -361,7 +353,6 @@ public class CMoveComponent : BaseComponent
 
         while (true)
         {
-            //PlayableCharacter.Instance.SetState(PlayableCharacter.States.Walk);
 
             Vector3 curdest = dest - transform.position;
             
@@ -378,21 +369,6 @@ public class CMoveComponent : BaseComponent
                 yield break;
             }
 
-
-
-            //if(curTime >= duration)
-            //{
-            //    //this.transform.position = dest;
-            //    if (invoker != null)
-            //        invoker.Invoke("");
-
-            //    Move(new Vector3(0, 0, 0), 0);
-
-            //    yield break;
-            //}
-            //runtime += Time.deltaTime;
-
-            //Debug.Log($"{curdest.magnitude}");
             if (!curval.IsFowordBlock)
                 Move(direction, moveoption.RunSpeed /** (curTime/duration)*/);
 
@@ -420,8 +396,6 @@ public class CMoveComponent : BaseComponent
 
         while (true)
         {
-            //PlayableCharacter.Instance.SetState(PlayableCharacter.States.Walk);
-
             Vector3 curdest = dest - transform.position;
 
 
@@ -433,8 +407,6 @@ public class CMoveComponent : BaseComponent
                 if (invoker != null)
                     invoker.Invoke("");
 
-                //Debug.Log("공격 움직임 종료");
-
                 Move(new Vector3(0, 0, 0), 0);
                 yield break;
             }
@@ -443,20 +415,15 @@ public class CMoveComponent : BaseComponent
 
             if (curTime >= duration)
             {
-                //this.transform.position = dest;
                 if (invoker != null)
                     invoker.Invoke("");
 
-                //Debug.Log("공격 움직임 종료");
 
                 Move(new Vector3(0, 0, 0), 0);
 
                 yield break;
             }
 
-            //runtime += Time.deltaTime;
-
-            //Debug.Log($"{curdest.magnitude}");
             if (!curval.IsFowordBlock)
                 Move(direction, distance*100);
 
@@ -471,9 +438,6 @@ public class CMoveComponent : BaseComponent
     //목적지까지 이동
     public IEnumerator CorDoMove(Vector3 dest, float maxTime, ActionInvoker invoker = null)
     {
-        //float distance = direction.magnitude;
-        //direction.Normalize();
-
 
         float startTime = Time.time;
         float lastTime = Time.time;
@@ -491,7 +455,6 @@ public class CMoveComponent : BaseComponent
 
         while (true)
         {
-            //PlayableCharacter.Instance.SetState(PlayableCharacter.States.Walk);
             curPosition = transform.position;
             curPosition.y = 0;
 
@@ -503,8 +466,6 @@ public class CMoveComponent : BaseComponent
             if (PlayableCharacter.Instance.GetState() == PlayableCharacter.States.OutOfControl||
                 PlayableCharacter.Instance.GetState() != PlayableCharacter.States.AutoMove)
             {
-                //if (invoker != null)
-                //    invoker.Invoke();
                 if (automovestopcor != null)
                 {
                     StopCoroutine(automovestopcor);
@@ -515,19 +476,6 @@ public class CMoveComponent : BaseComponent
                 Move(new Vector3(0, 0, 0), 0);
                 yield break;
             }
-
-            //if (curTime >= maxTime)
-            //{
-            //    PlayableCharacter.Instance.SetState(PlayableCharacter.States.Idle);
-
-            //    if (invoker != null)
-            //        invoker.Invoke();
-
-            //    Move(new Vector3(0, 0, 0), 0);
-
-            //    yield break;
-            //}
-            //runtime += Time.deltaTime;
 
             if (curDirection.magnitude <= 0.1f)
             {
@@ -557,92 +505,6 @@ public class CMoveComponent : BaseComponent
 
     }
 
-
-    //public IEnumerator CorDoMove(GameObject obj, Vector3 dest, float duration, CallBackEvent _event = null)
-    //{
-    //    float testtime = Time.time;
-    //    float startTime = Time.time;
-    //    float lastTime = 0;
-    //    float curtime = 0;
-    //    //float countVal = Time.deltaTime;
-    //    //목표시간까지의 움직여야 될 횟수
-    //    //float maxCount = duration / countVal;
-
-    //    //0~1까지의 값을 만든다고 할때 1회마다 증가할 값
-    //    //float addval = 1 / maxCount;
-
-    //    float curval = 0;
-    //    float count = 0;
-
-    //    Vector3 startpos = obj.transform.position;
-    //    //목표까지의 방향과 거리
-    //    Vector3 direction = dest - obj.transform.position;
-    //    float distance = direction.magnitude;
-    //    direction.Normalize();
-
-    //    Vector3 start = obj.transform.position;
-
-    //    lastTime = Time.time;
-    //    while (true)
-    //    {
-    //        count++;
-    //        if (count >= 10)
-    //        {
-    //            int a = 0;
-    //        }
-    //        //curtime += Time.deltaTime;
-    //        curtime += Time.time - lastTime;
-    //        //지정한 시간이 되면 끝난다.
-    //        if (curtime >= duration)
-    //        {
-    //            obj.transform.position = startpos + (direction * getEaseVal(1) * distance);
-    //            _event?.Invoke();
-    //            Debug.Log(Time.time - testtime + "초 걸림");
-    //            yield break;
-    //        }
-
-    //        if (curval > 1)
-    //        {
-    //            obj.transform.position = startpos + (direction * getEaseVal(1) * distance);
-    //            _event?.Invoke();
-    //            Debug.Log(Time.time - testtime + "초 걸림");
-    //            yield break;
-    //        }
-
-
-    //        obj.transform.position = startpos + (direction * getEaseVal(curval) * distance);
-    //        curval = curtime / duration;
-    //        lastTime = Time.time;
-    //        //curval += addval;
-    //        //count += countVal;
-
-    //        yield return new WaitForSeconds(Time.deltaTime);
-    //    }
-
-    //}
-
-
-    //특정 시간동안 해당 방향과 속도로 움직인다.
-    //public IEnumerator CorDoDirectionMove(Vector3 direction, float duration, Invoker invoker = null)
-    //{
-    //    float runtime = 0.0f;
-    //    while (true)
-    //    {
-
-    //        if (runtime >= duration)
-    //        {
-    //            //this.transform.position = dest;
-    //            if (invoker != null)
-    //                invoker.Invoke("");
-    //            yield break;
-    //        }
-    //        runtime += Time.deltaTime;
-
-    //        Move(direction);
-
-    //        yield return new WaitForSeconds(Time.deltaTime);
-    //    }
-    //}
 
 
     bool temptrigger = false;
@@ -687,8 +549,6 @@ public class CMoveComponent : BaseComponent
         }
 
 
-        //WorldMove = WorldMove * speed * Time.deltaTime;
-
         Move(WorldMove, speed);
     }
 
@@ -710,55 +570,29 @@ public class CMoveComponent : BaseComponent
             //움직일 수 없는 각도의 경사로 위에 있을때 (미끌어질때)
             if (curval.IsSlip)
             {
-                //Debug.Log("미끌어짐");
                 //올라가던지 내려가던지 무조건 경사로의 아래 방향으로 경사로를 따라서 미끌어지도록
                 curval.CurHorVelocity = Vector3.up;
 
                 slopVector = Quaternion.AngleAxis(-(curval.CurGroundSlopAngle + 90), curval.CurGroundCross) * curval.CurHorVelocity;
                 curval.MoveAccel = moveoption.SlopAccel;
                 curval.CurHorVelocity = Quaternion.AngleAxis(-(curval.CurGroundSlopAngle + 90), curval.CurGroundCross) * curval.CurHorVelocity * curval.MoveAccel;
-                //moveoption.SlopAccel += 0.2f;
-                //transform.position += ((curval.CurHorVelocity + curval.CurVirVelocity) * Time.deltaTime);
-                //com.CharacterRig.velocity = ((curval.CurHorVelocity + curval.CurVirVelocity) * 10.0f * Time.deltaTime);
                 return (curval.CurHorVelocity + curval.CurVirVelocity);
             }
             //움직일 수 있는 경사로 움직일때
             else
             {
-                //Debug.Log("그냥 경사로");
                 //올라가는 중 일때는 경사로의 각도에 따라서 움직이는 속도가 느려지도록 하고
                 //내려가는 중 일때는 경사로의 각도에 따라서 움직이는 속도가 빨라지도록 한다.
                 curval.CurHorVelocity = movedir;
 
-                //transform.position += ((curval.CurHorVelocity + curval.CurVirVelocity) * speed * Time.deltaTime);
-                //com.CharacterRig.velocity = ((curval.CurHorVelocity + curval.CurVirVelocity) * speed * Time.deltaTime);
-
-                //curval.CurHorVelocity = Quaternion.AngleAxis(-curval.CurGroundSlopAngle, curval.CurGroundCross) * curval.CurHorVelocity;
-                //Debug.DrawRay(transform.position, curval.CurHorVelocity, Color.red);
-
                 return ((curval.CurHorVelocity + curval.CurVirVelocity));
             }
-
-            //Debug.DrawLine(this.transform.position, this.transform.position + (curval.CurHorVelocity + curval.CurVirVelocity));
-            //templastmovevec = curval.CurHorVelocity + curval.CurVirVelocity;
-
-            //com.CharacterRig.velocity = curval.CurHorVelocity + curval.CurVirVelocity;
-            //transform.position += ((curval.CurHorVelocity + curval.CurVirVelocity) * speed * Time.deltaTime);
         }
         //경사로가 아닐때
         else
         {
-            //MoveDir = movedir * speed * Time.deltaTime;
-            //com.CharacterRig.velocity = new Vector3(MoveDir.x, CurGravity, MoveDir.z);
             return new Vector3(movedir.x, CurGravity, movedir.y);
-            //transform.position += new Vector3(MoveDir.x, CurGravity, MoveDir.z);
         }
-    }
-
-    //정면이 계단인지 확인하고 계단이면 넘어간다.
-    public void StepCheck()
-    {
-
     }
 
 
@@ -789,46 +623,31 @@ public class CMoveComponent : BaseComponent
             //움직일 수 없는 각도의 경사로 위에 있을때 (미끌어질때)
             if (curval.IsSlip)
             {
-                //Debug.Log("미끌어짐");
                 //올라가던지 내려가던지 무조건 경사로의 아래 방향으로 경사로를 따라서 미끌어지도록
                 curval.CurHorVelocity = Vector3.up;
 
                 slopVector = Quaternion.AngleAxis(-(curval.CurGroundSlopAngle+90), curval.CurGroundCross) * curval.CurHorVelocity;
                 curval.MoveAccel = moveoption.SlopAccel;
                 curval.CurHorVelocity = Quaternion.AngleAxis(-(curval.CurGroundSlopAngle + 90), curval.CurGroundCross) * curval.CurHorVelocity * curval.MoveAccel;
-                //moveoption.SlopAccel += 0.2f;
-                //transform.position += ((curval.CurHorVelocity + curval.CurVirVelocity) * Time.deltaTime);
                 com.CharacterRig.velocity = ((curval.CurHorVelocity + curval.CurVirVelocity) * 10.0f * Time.deltaTime);
 
             }
             //움직일 수 있는 경사로 움직일때
             else
             {
-                //Debug.Log("그냥 경사로");
                 //올라가는 중 일때는 경사로의 각도에 따라서 움직이는 속도가 느려지도록 하고
                 //내려가는 중 일때는 경사로의 각도에 따라서 움직이는 속도가 빨라지도록 한다.
                 curval.CurHorVelocity = MoveVal;
 
-                //transform.position += ((curval.CurHorVelocity + curval.CurVirVelocity) * speed * Time.deltaTime);
                 com.CharacterRig.velocity = ((curval.CurHorVelocity + curval.CurVirVelocity) * speed * Time.deltaTime);
 
-                //curval.CurHorVelocity = Quaternion.AngleAxis(-curval.CurGroundSlopAngle, curval.CurGroundCross) * curval.CurHorVelocity;
-                //Debug.DrawRay(transform.position, curval.CurHorVelocity, Color.red);
-
             }
-
-            //Debug.DrawLine(this.transform.position, this.transform.position + (curval.CurHorVelocity + curval.CurVirVelocity));
-            //templastmovevec = curval.CurHorVelocity + curval.CurVirVelocity;
-
-            //com.CharacterRig.velocity = curval.CurHorVelocity + curval.CurVirVelocity;
-            //transform.position += ((curval.CurHorVelocity + curval.CurVirVelocity) * speed * Time.deltaTime);
         }
         //경사로가 아닐때
         else
         {
             MoveVal = MoveVal * speed * Time.deltaTime;
             com.CharacterRig.velocity = new Vector3(MoveVal.x, CurGravity, MoveVal.z);
-            //transform.position += new Vector3(MoveDir.x, CurGravity, MoveDir.z);
         }
 
     }
@@ -901,7 +720,6 @@ public class CMoveComponent : BaseComponent
         //이미 넉다운 중일때 해당 함수가 다시 들어오면 그냥 리턴
         if(curval.IsKnockDown)
         {
-            //curval.IsKnockDown = false;
             return;
         }
 
@@ -915,13 +733,11 @@ public class CMoveComponent : BaseComponent
         
         if (com.animator.GetPlaySpeed() != 0.0f)
         {
-            //Debug.Log("멈춤");
             com.animator.Pause();
             StartCoroutine(timecounter.Cor_TimeCounter(moveoption.KnockDownTime, KnockDownPause));
         }
         else
         {
-            //Debug.Log("다시시작");
             com.animator.Resume();
         }
 
@@ -929,7 +745,6 @@ public class CMoveComponent : BaseComponent
 
     public void KnockDownEnd(string s_val)
     {
-        //Debug.Log($"{s_val} 들어옴");
         curval.IsKnockDown = false;
     }
 
@@ -945,13 +760,11 @@ public class CMoveComponent : BaseComponent
 
         curval.IsKnockBack = true;
 
-        //Debug.Log($"넉백실행");
         com.animator.Play(moveoption.KnockBackClip.name);
     }
 
     public void KnockBackEnd(string s_val)
     {
-        //Debug.Log($"{s_val} 들어옴");
         curval.IsKnockBack = false;
     }
 
@@ -995,8 +808,7 @@ public class CMoveComponent : BaseComponent
         {
             return;
         }
-
-        //Debug.Log("[Attack] 구리기 시작");   
+ 
         curval.IsRolling = true;
         com.animator.Play(moveoption.RollingClip.name, moveoption.RollingClipPlaySpeed, 0.0f, 0.2f, RollingOver);
 
@@ -1006,13 +818,10 @@ public class CMoveComponent : BaseComponent
         RollingNoDamageStartCor = timecounter.Cor_TimeCounter(moveoption.RollingNoDamageStartTime, ActivateNoDamage);
         StartCoroutine(RollingNoDamageStartCor);
         
-        //이거 살려야됨
-        //Vector3 moveval = com.FpRoot.forward * moveoption.RollingDistance;
 
         RollingStartTime = Time.time;
 
         FowardDoMove(moveoption.RollingDistance, moveoption.RollingTime);
-        //Move(com.FpRoot.forward, moveoption.RollingDistance);
     }
 
     public void RollingOver()
@@ -1037,7 +846,6 @@ public class CMoveComponent : BaseComponent
 
     public void ActivateNoDamage()
     {
-        //moveoption.NowIsNoDamege = true;
         curval.IsNoDamage = true;
         RollingNoDamageStartCor = null;
 
@@ -1050,51 +858,6 @@ public class CMoveComponent : BaseComponent
         curval.IsNoDamage = false;
         RollingNoDamageEndCor = null;
     }
-
-    
-
-    //IEnumerator Rolling_Coroutine(float time)
-    //{
-    //    float temptime = time;
-    //    temptime /= moveoption.RollingClipPlaySpeed;
-
-    //    float curtime = 0.0f;
-
-    //    //int tempval = (int)(temptime / 0.016f);
-    //    //Debug.Log($"{temptime}/{0.016} -> {tempval}회 반복");
-
-    //    int i = 0;
-    //    Vector3 tempmove = Vector3.zero;
-    //    tempmove = com.FpRoot.forward; 
-    //    tempmove *= moveoption.RollingDistance;
-
-    //    //Vector3 dest = this.transform.position + tempmove; 
-
-    //    while (true)
-    //    {
-    //        curtime += Time.deltaTime;
-
-    //        if (curtime >= temptime)
-    //        {
-    //            curval.IsRolling = false;
-    //            yield break;
-    //        }
-
-
-    //        //if (!curval.IsFowordBlock)
-    //        //    this.transform.position = Vector3.Lerp(this.transform.position, dest, Time.deltaTime);
-
-    //        if (!curval.IsFowordBlock)
-    //            Move(tempmove);
-
-    //        //Vector3 temp = Vector3.Lerp(start, dest, runtime / duration);
-
-    //        //com.CharacterRig.velocity = new Vector3(tempmove.x, tempmove.y, tempmove.z);
-
-    //        //i++;
-    //        yield return new WaitForSeconds(Time.deltaTime);
-    //    }
-    //}
 
     
     public void Rotation()
@@ -1137,13 +900,10 @@ public class CMoveComponent : BaseComponent
             yRotNext = yRotPrev;
         if (yRotNext <= 10)
             yRotNext = yRotPrev;
-        //ynext = yRotNext;
 
 
         com.FpRoot.localEulerAngles = Vector3.up * xRotNext;
-        //updown = com.FpRoot.localEulerAngles;
         com.FpCamRig.localEulerAngles = Vector3.right * yRotNext;
-        //rightleft = com.FpCamRig.localEulerAngles;
 
     }
 
@@ -1154,26 +914,12 @@ public class CMoveComponent : BaseComponent
         float xRotPrev = com.TpCamRig.localEulerAngles.y;
         float xRotNext = xRotPrev + MouseMove.x * Time.deltaTime * 50f * moveoption.RotMouseSpeed * ((moveoption.RightReverse) ? -1 : 1);
 
-        //if (xRotNext > 180f)
-        //    xRotNext -= 360f;
 
         float yRotPrev = com.TpCamRig.localEulerAngles.x;
         float yRotNext = yRotPrev + MouseMove.y * Time.deltaTime * 50f * moveoption.RotMouseSpeed /** ((moveoption.RightReverse) ? -1 : 1)*/;
 
         testyRotPrev = yRotPrev;
         testyRotNext = yRotNext;
-
-        //if (yRotNext >= 80)
-        //    yRotNext = yRotPrev;
-        //if (yRotNext <= 10)
-        //    yRotNext = yRotPrev;
-
-        //TpCamRig.localEulerAngles = Vector3.up * xRotNext;
-
-        //TpCamRig.localEulerAngles = Vector3.right * yRotNext;
-
-
-
 
 
 
@@ -1220,30 +966,17 @@ public class CMoveComponent : BaseComponent
     //3인칭 카메라가 해당 위치를 바라보도록 회전
     public void LookAt(Vector3 lookpos)
     {
-        //com.TpCamRig.LookAt(lookpos);
-
-        //Debug.DrawLine(com.TpCamRig.transform.position, lookpos);
         //캐릭터 눈높이에서 
         Vector3 dir = lookpos - com.TpCamRig.transform.position;
         Vector3 rot = Quaternion.LookRotation(dir, Vector3.up).eulerAngles;
         com.TpCamRig.eulerAngles = new Vector3(rot.x, rot.y, rot.z);
 
-
-        //Vector3 dir = (lookpos - GetCamera().transform.position).normalized;
-        //Debug.DrawLine(GetCamera().transform.position, lookpos);
-
-        //Vector3 rot = Quaternion.LookRotation(dir, Vector3.up).eulerAngles;
-
-        //Vector3 temp = com.TpCamRig.eulerAngles;
-
-        //com.TpCamRig.eulerAngles = new Vector3(rot.x, rot.y, rot.z);
     }
 
     //캐릭터가 해당 방향을 바라보도록 
     public void LookAtBody(Vector3 lookdir)
     {
         Vector3 rot = Quaternion.LookRotation(lookdir, Vector3.up).eulerAngles;
-        //Quaternion.AngleAxis
 
         Vector3 temp = com.TpCamRig.eulerAngles;
 
@@ -1259,7 +992,6 @@ public class CMoveComponent : BaseComponent
             tempworldmove = com.TpCamRig.forward;
 
         Vector3 rot = Quaternion.LookRotation(tempworldmove, Vector3.up).eulerAngles;
-        //Quaternion.AngleAxis
 
         Vector3 temp = com.TpCamRig.eulerAngles;
 
@@ -1368,8 +1100,6 @@ public class CMoveComponent : BaseComponent
             int index = tempinstance._monsterObject.FindIndex(x => x._monster == tempinstance.CurFocusedMonster);
             if (index != -1)
             {
-
-                //Vector3 pos = tempinstance.CurFocusedMonster.transform.position + tempinstance._monsterObject[index]._searchPoint[0];
                 if(tempinstance.CurFocusedMonster!=null)
                 {
                     //그냥 캐릭터 시점과 y 높이가 같도록
@@ -1380,13 +1110,6 @@ public class CMoveComponent : BaseComponent
                 }
                 
             }
-            //else
-            //{
-            //    Debug.Log("[focus]포커싱 중인 몬스터가 리스트에 없을때 꺼짐");
-            //    tempinstance.IsFocusingOn = false;
-            //    tempinstance.CurFocusedIndex = 0;
-            //    tempinstance.CurFocusedMonster = null;
-            //}
         }
     }
 
@@ -1418,11 +1141,6 @@ public class CMoveComponent : BaseComponent
 
     }
 
-    public override void Awake()
-    {
-        base.Awake();
-        Application.targetFrameRate = 80;
-    }
 
     void Update()
     {
@@ -1431,28 +1149,6 @@ public class CMoveComponent : BaseComponent
         UpdateMove();
         Focusing();
         CameraCollision();
-
-        //if (curval.IsGrounded)
-            //transform.position = new Vector3(transform.position.x, curval.CurGroundPoint.y, transform.position.z);
-
-        //Debug.DrawRay(transform.position, templastmovevec, Color.blue);
-
-        //LookAtFoward();
-        //이동값이 조금이라도 있으면 움직이는중으로 판단
-        //curval.IsMoving = false;
-        //if (MoveDir.magnitude > 0)
-        //{
-        //    curval.IsMoving = true;
-        //    //CharacterStateMachine.Instance.SetState(CharacterStateMachine.eCharacterState.Move);
-        //}
-        //else if(PlayableCharacter.Instance.GetState()!= PlayableCharacter.States.Attack||
-        //    PlayableCharacter.Instance.GetState() != PlayableCharacter.States.Guard||
-        //    PlayableCharacter.Instance.GetState() != PlayableCharacter.States.GuardStun||
-        //    PlayableCharacter.Instance.GetState() != PlayableCharacter.States.OutOfControl||
-        //    PlayableCharacter.Instance.GetState() != PlayableCharacter.States.Rolling)
-        //{
-        //    PlayableCharacter.Instance.SetState(PlayableCharacter.States.Idle);
-        //}
 
         //달리는 중일떄 1초마다 스테미나를 줄여준다.
         if (curval.IsMoving&&curval.IsRunning&& PlayableCharacter.Instance.status.CurStamina >= moveoption.RunningStaminaVal)
@@ -1483,16 +1179,10 @@ public class CMoveComponent : BaseComponent
         Quaternion rot = Quaternion.LookRotation(com.TpCamRig.forward, Vector3.up);
         Vector3 startpos = (PlayableCharacter.Instance.IsFocusingOn) ? startCampos_Focusing : startCamPos;
         Vector3 dir = (rot * startpos).normalized;
-        //Debug.DrawRay(Capsuletopcenter, dir);
-        //Debug.DrawLine(com.TpCamRig.position, com.TpCamRig.position + (dir * camDistance));
 
         if (CameraCollOn)
         {
             //캐릭터에서 본래 카메라 위치 방향
-
-            //Vector3 dir = com.TpCamRig.up + (-com.TpCamRig.forward * startCamPos.magnitude);
-            
-            //float distance = dir.magnitude;
 
             Ray ray = new Ray(Capsuletopcenter, dir);
             RaycastHit hit;
@@ -1507,21 +1197,6 @@ public class CMoveComponent : BaseComponent
             }
 
         }
-        //else
-        //{
-        //    if (PlayableCharacter.Instance.IsFocusingOn)
-        //    {
-        //        GetCamera().transform.position = com.TpCamRig.position;
-
-        //    }
-                
-        //}
-
-        //Vector3 rot = Quaternion.LookRotation(lookdir, Vector3.up).eulerAngles;
-
-        //Vector3 temp = com.TpCamRig.eulerAngles;
-
-        //com.FpRoot.eulerAngles = new Vector3(rot.x, rot.y, rot.z);
 
     }
 

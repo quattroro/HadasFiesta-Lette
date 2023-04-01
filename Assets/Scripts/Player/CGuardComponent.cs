@@ -2,19 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///캐릭터의 방어를 담당하는 클래스
+/////////////////////////////////////////////////////////////////////
+///
+
 public class CGuardComponent : BaseComponent
 {
     public CMoveComponent movecom;
     public AnimationController animator;
     public AnimationEventSystem eventsystem;
-    //public IEnumerator coroutine;
 
 
+    //가드에 대한 옵션 변수들
     [Header("============Guard Options============")]
     public float GuardTime;//최대로 가드를 할 수 있는 시간
     public float GuardStunTime;//가드 경직 시간
-    public int MaxGuardGauge;//
-    public int BalanceDecreaseVal;
+    //public int BalanceDecreaseVal;
     public AnimationClip GuardStunClip;
     public string GuardStunClipName;
     public AnimationClip GuardClip;
@@ -23,11 +32,11 @@ public class CGuardComponent : BaseComponent
 
     public float GuardAngle;
 
+    //내부적으로 동작에 사용되는 변수들
     [Header("============Cur Values============")]
     public int CurGuardGauge;
     public bool nowGuard;
     public float GaugeDownInterval;
-    //public bool playingCor;
     public IEnumerator guardcoroutine;
     public IEnumerator stuncoroutine;
     public delegate void Invoker();
@@ -37,17 +46,11 @@ public class CGuardComponent : BaseComponent
 
     private CorTimeCounter timer = new CorTimeCounter();
     
-    // Start is called before the first frame update
+
     void Start()
     {
         animator = GetComponentInChildren<AnimationController>();
         eventsystem = GetComponentInChildren<AnimationEventSystem>();
-
-
-
-        //eventsystem.AddEvent(new KeyValuePair<string, AnimationEventSystem.beginCallback>(null, null),
-        //        new KeyValuePair<string, AnimationEventSystem.midCallback>(null, null),
-        //        new KeyValuePair<string, AnimationEventSystem.endCallback>(GuardStunClip.name, AttackEnd));
     }
 
 
@@ -90,8 +93,6 @@ public class CGuardComponent : BaseComponent
 
         if (guardcoroutine != null)
         {
-            //playingCor = false;
-            //Debug.Log("실행중 나감");
             StopCoroutine(guardcoroutine);
             if(stuncoroutine!=null)
             {
@@ -103,7 +104,6 @@ public class CGuardComponent : BaseComponent
             
 
         movecom.curval.IsGuard = false;
-        //CharacterStateMachine.Instance.SetState(CharacterStateMachine.eCharacterState.Idle);
     }
 
     
@@ -112,20 +112,7 @@ public class CGuardComponent : BaseComponent
     //가드중일때 데미지가 들어왔을때는 이쪽으로 들어온다.
     public void Damaged_Guard(float damage,Vector3 hitpoint,float Groggy)
     {
-        //if (PlayableCharacter.Instance.status.CurBalance >= BalanceDecreaseVal)
-        //{
-        //    EffectManager.Instance.InstantiateEffect(GuardEffect, guardeffectpos.position, guardeffectpos.rotation);
-        //    PlayableCharacter.Instance.status.CurBalance -= BalanceDecreaseVal;
-        //    GuardStun();
-        //}
-        //else
-        //{
-        //    PlayableCharacter.Instance.Damaged(damage, hitpoint);
-        //}
-
         //피격위치가 캐릭터 정면 일정 각도 안에 있을때만 가드 성공
-        
-        
         Vector3 front = movecom.com.FpRoot.forward;
         front.y = 0;
         front.Normalize();
@@ -140,91 +127,41 @@ public class CGuardComponent : BaseComponent
         //스테미나에 따라서 가드 성공 실패 학인
         if (PlayableCharacter.Instance.status.CurStamina >= 10 /*&& hitangle <= GuardAngle*/ && !nowGuardStun) 
         {
+            //가드 성공
             PlayableCharacter.Instance.status.StaminaDown(10);
             EffectManager.Instance.InstantiateEffect(GuardEffect, guardeffectpos.position, guardeffectpos.rotation);
             GuardStun();
-            Debug.Log("가드 성공");
         }
         else
         {
-            Debug.Log("가드 실패");
-            //PlayableCharacter.Instance.status.StaminaDown(10);
+            //가드 실패
             PlayableCharacter.Instance.Damaged(damage, hitpoint, Groggy);
         }
 
 
     }
 
-//    if (Time.time - LastDetestTime >= DetectTime)
-//        {
-//            LastDetestTime = Time.time;
-
-//            //탐지범위에 플레이어가 있는지 판단
-//            RaycastHit2D hit = Physics2D.CircleCast(transform.position, DetectRadius, new Vector2(0, 0), 0, PlayerLayer);
-
-//            if (hit.collider != null)
-//            {
-//                //플레이어가 판단되면 정면벡터와의 내적으로 각도를 구해서 정면이면 탐지
-//                direction = hit.transform.position - this.transform.position;
-//                direction.Normalize();
-
-//                DetectedAngle = Mathf.Acos(Vector3.Dot(WAYS[(int)Direction], direction)) * 180.0f / 3.14f;
-//                if (DetectedAngle <= DetectAngle)
-//                {
-//                    obj = hit.transform.gameObject;
-//                }
-//Debug.Log("플레이어 감지");
-//            }
-
-//            if (obj != null)
-//{
-//    if (state != MONSTERSTATE.ATTACK || state != MONSTERSTATE.WALKING)
-//    {
-//        sc_player = obj.GetComponentInChildren<Player>();
-//        NowDetected = true;
-//        MoveScript.MoveStart(transform.position, sc_player.transform.position);
-//    }
-
-//}
-//else
-//{
-//    sc_player = null;
-//    NowDetected = false;
-//}
-//        }
 
 
     //가드넉백상태는 GuardStun 상태로 넘어간다.
     public void GuardStun()
     {
-        //PlayableCharacter.Instance.SetState(PlayableCharacter.States.GuardStun);
-        Debug.Log("가드 스턴 들어옴");
         animator.Play(GuardStunClipName, 1.0f, 0.0f, 0.1f, StunEnd);
         stuncoroutine = timer.Cor_TimeCounter(animator.GetClipLength(GuardStunClipName), StunEnd);
         nowGuardStun = true;
-        //StartCoroutine(stuncoroutine);
-        // Cor_TimeCounter
     }
 
+    //스턴 종료
     public void StunEnd()
     {
-        Debug.Log("가드 스턴 끝 들어옴");
         nowGuardStun = false;
         movecom.com.animator.Play("Block_Loop", 2.0f);
-        //PlayableCharacter.States prestate = PlayableCharacter.Instance.GetLastState();
-        //PlayableCharacter.Instance.SetState(prestate);
-        //if(prestate == CharacterStateMachine.eCharacterState.Guard)
-        //{
-        //    movecom.com.animator.Play(GuardClip.name, 2.0f);
-        //}
         stuncoroutine = null; 
     }
 
+    //초기화
     public override void InitComtype()
     {
         p_comtype = CharEnumTypes.eComponentTypes.GuardCom;
     }
-
-    
-    
 }

@@ -2,25 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//문제상황
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///유저의 입력을 처리해주는 클래스
+///현재의 캐릭터의 상태와 입력에 대한 다양한 처리를 해줍니다.
+/////////////////////////////////////////////////////////////////////
 
-//1. Input에서 움직이고 있는지 아닌지를 판단하기 때문에 키 입력이 아니고 움직이고 싶을때 상태 변경이 안된다.
 
-//2. 그냥 Move에서 상태를 변경하려고 해도 Input 에서 Update로 지속적으로 값을 지정하고 있어서 불가능
-
-//3. 상태머신의 Update 처리 불가능 
-
-//해결방법
-//1. input에서 Update로 지속적으로 움직이는지 체크하지 않는다. 
-//   인풋의 상태 변경하는 부분을 Move부분으로 옮기려고 해도 인풋의 예외처리를 그대로 다 해줘야 한다. -> 의미가 없음 어짜피 Update에서 하는건 똑같기 때문에
-//   움직임 방식을 변경? Dotween 처럼 일정 시간동안 일정 거리를 움직이도록? -> 이렇게 변경해도 달라지는게 없음
-//   일단 움직이도록 하고 Velocity 값을 참조해서 변경? 변경하면서 관성 시스템도 같이 넣도록
-   
-//2. 상태가 변경되는것이 맞춰서 
-
-//3. 상태머신에서 Update함수들을 딕셔너릭로 가지고 있다가 실행시켜준다.
-
-/*유저의 입력을 처리한다.*/
 public class CInputComponent : BaseComponent
 {
     //캐릭터의 모든 컴포넌트를 관리하기 쉽게 하기 위해 basecomponent를 상속받은 스크립트들을 componentmanager에서 관리한다.
@@ -65,14 +55,13 @@ public class CInputComponent : BaseComponent
     public CMoveComponent movecom;
     //2. Attack 컴포넌트
     public CAttackComponent attackcom;
-    //public PlayerAttack attackcom;
     //3. Defence 컴포넌트
     public CGuardComponent guardcom;
 
+    //
+    //private GameObject canvas;
 
-    private GameObject canvas;
-
-    //CharacterStateMachine.eCharacterState state;
+    //캐릭터의 현재 상태
     PlayableCharacter.States state;
 
     public void GetWASD()
@@ -132,18 +121,9 @@ public class CInputComponent : BaseComponent
     }
 
     //키와 마우스 입력을 처리한다.
+    //소리 출력은 버그로 인해 잠시 정지
     void KeyInput()
     {
-        MainOption option;
-        if (canvas!=null)
-        {
-            canvas.TryGetComponent<MainOption>(out option);
-            if (option != null)
-                if (option.ShowOption)
-                    return;
-        }
-        
-        
 
         if (movecom == null)
             movecom = PlayableCharacter.Instance.GetMyComponent(CharEnumTypes.eComponentTypes.MoveCom) as CMoveComponent;
@@ -419,7 +399,7 @@ public class CInputComponent : BaseComponent
             attackcom = PlayableCharacter.Instance.GetMyComponent(CharEnumTypes.eComponentTypes.AttackCom) as CAttackComponent;
         //attackcom = PlayableCharacter.Instance.GetMyComponent(CharEnumTypes.eComponentTypes.AttackCom) as PlayerAttack;
 
-        attackcom.SkillAttack(attackcom.skillinfos[num]);
+        attackcom.SkillAttack(attackcom.skillInfoList[num]);
     }
 
     public dotweentest testtestobj;
@@ -446,51 +426,6 @@ public class CInputComponent : BaseComponent
             //movecom.KnockDown();
         }
 
-        ////테스트
-        //if (Input.GetKeyDown(KeyCode.UpArrow))
-        //{
-        //    ResourceCreateDeleteManager.Instance.RegistPoolManager<dotweentest>("testcube");
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.RightArrow))
-        //{
-        //    testtestobj = ResourceCreateDeleteManager.Instance.InstantiateObj<dotweentest>("testcube");
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.LeftArrow))
-        //{
-        //    testtestobj2 = ResourceCreateDeleteManager.Instance.InstantiateObj<GameObject>("Testcube2");
-        //}
-
-
-
-        //if (Input.GetKeyDown(KeyCode.V))
-        //{
-        //    ResourceCreateDeleteManager.Instance.RegistPoolManager<GameObject>("Testcube2");
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.B))
-        //{
-        //    ResourceCreateDeleteManager.Instance.DestroyObj<dotweentest>("testcube", testtestobj.gameObject);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.N))
-        //{
-        //    ResourceCreateDeleteManager.Instance.DestroyObj<GameObject>("Testcube2", testtestobj2);
-        //}
-
-        //이동 테스트
-        //if (Input.GetKeyDown(KeyCode.V))
-        //{
-        //    movecom.AutoMove(this.transform.position + new Vector3(0.0f, 0.0f, 500.0f),2, TestEnd);
-        //}
-
-
-
-        //if (Input.GetKeyDown(KeyCode.B))
-        //{
-        //    ResourceCreateDeleteManager.Instance.DestroyObj<dotweentest>("testcube", testtestobj.gameObject);
-        //}
 
         //키 입력
         KeyInput();

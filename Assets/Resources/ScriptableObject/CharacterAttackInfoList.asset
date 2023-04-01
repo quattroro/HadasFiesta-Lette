@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb2e0eebfb925b49bf022ade16693c3, type: 3}
+  m_Name: CharacterAttackInfoList
+  m_EditorClassIdentifier: 
+  attackInfoList:
+  - attackNum: 0
+    attackName: Attack1
+    attackType: 0
+    aniclipName: R_Attack_08
+    endAniclipName: Idle
+    endmovestarttime: 0
+    endmovedis: 0
+    endmovetime: 0
+    animationPlaySpeed: 1
+    endanimationPlaySpeed: 1
+    startDelay: 0.69
+    recoveryDelay: 0.1
+    bufferdInputTime_Start: 0.1
+    BufferdInputTime_End: 0.1
+    damage: 20
+    StaminaGaugeDown: 5
+    EffectName: Eff1_Left
+    EffectStartTime: 0.15
+    effectPosRot: {fileID: 0}
+    EffectDestroyTime: 0
+    movestarttime: 0.15
+    movedis: 2
+    movetime: 0.21
+    ProjectileObjName: 
+    TargetObjName: 
+    AttackEndTime: 0.5152439
+  - attackNum: 1
+    attackName: Attack2
+    attackType: 0
+    aniclipName: R_Attack_09
+    endAniclipName: Idle
+    endmovestarttime: 0
+    endmovedis: 0
+    endmovetime: 0
+    animationPlaySpeed: 1
+    endanimationPlaySpeed: 1
+    startDelay: 0.42
+    recoveryDelay: 0.1
+    bufferdInputTime_Start: 0.1
+    BufferdInputTime_End: 0.2
+    damage: 20
+    StaminaGaugeDown: 5
+    EffectName: Eff1_Right
+    EffectStartTime: 0.25
+    effectPosRot: {fileID: 0}
+    EffectDestroyTime: 0
+    movestarttime: 0.25
+    movedis: 4
+    movetime: 0.2
+    ProjectileObjName: 
+    TargetObjName: 
+    AttackEndTime: 0.5987043
+  - attackNum: 2
+    attackName: Attack3
+    attackType: 0
+    aniclipName: R_Attack_01
+    endAniclipName: Idle
+    endmovestarttime: 0.1
+    endmovedis: 0
+    endmovetime: 30
+    animationPlaySpeed: 1
+    endanimationPlaySpeed: 1
+    startDelay: 0
+    recoveryDelay: 0
+    bufferdInputTime_Start: 0.2
+    BufferdInputTime_End: 0
+    damage: 30
+    StaminaGaugeDown: 10
+    EffectName: Eff1_Right
+    EffectStartTime: 0.07
+    effectPosRot: {fileID: 0}
+    EffectDestroyTime: 0
+    movestarttime: 0.07
+    movedis: 3.2
+    movetime: 0.21
+    ProjectileObjName: 
+    TargetObjName: 
+    AttackEndTime: 0.7

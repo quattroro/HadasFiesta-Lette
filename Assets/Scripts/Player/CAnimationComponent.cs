@@ -1,4 +1,16 @@
 
+
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///공용으로 사용되는 AnimatorController를 제작하면서 사용하지 않게됨
+/////////////////////////////////////////////////////////////////////
+
+
+
+
 //using System.Collections;
 //using System.Collections.Generic;
 //using System.Linq;
@@ -17,7 +29,7 @@
 //    //테스트용
 //    public AnimationClip[] Attackclips;
 
-    
+
 //    private void Awake()
 //    {
 //        for(CharEnumTypes.eAnimationState i = 0;i< CharEnumTypes.eAnimationState.AniStateMax;i++)
@@ -78,7 +90,7 @@
 //    public void SetBool(string valname, bool value)
 //    {
 //        animator.SetBool(valname, value);
-        
+
 //    }
 
 //    public void SetTrigger(string valname)

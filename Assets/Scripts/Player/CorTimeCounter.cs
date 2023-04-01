@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*StartCoroutine() 으로 해당 클래스의 함수를 실행 시켜주면 지정한 시간이 지나면 같이 설정해준 invoker를 실행 시켜준다.
-  ex) StartCoroutine(CorTimeCounter객체.Cor_TimeCounter<GameObject>(1.5f,함수,인자))
-      StartCoroutine(CorTimeCounter객체.Cor_TimeCounter(1.5f,함수))*/
 
-//일정 시간동안 일정 주기로 지정한 함수를 실해 시켜주는 기능 추가
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///MonoBehaviour를 상속받지 않아도 코루틴을 사용하게 해주기 위한 함수
+///StartCoroutine() 으로 해당 클래스의 함수를 실행 시켜주면 지정한 시간이 지나면 같이 설정해준 invoker를 실행 시켜준다.
+///ex) StartCoroutine(CorTimeCounter객체.Cor_TimeCounter<GameObject>(1.5f,함수,인자))
+///StartCoroutine(CorTimeCounter객체.Cor_TimeCounter(1.5f,함수))
+/////////////////////////////////////////////////////////////////////
+
 public class CorTimeCounter
 {
     public delegate void Invoker();

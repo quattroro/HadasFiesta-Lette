@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//원에 반으로
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+///조민익 작업
+///월드에 콜라이더 생성이 필요할때 생성되는 콜라이더오브젝트
+///Box와 Sphere 두가지가 있다.
+/////////////////////////////////////////////////////////////////////
+///
 public class SphereColl : Colliders
 {
     private void Awake()
@@ -33,37 +40,5 @@ public class SphereColl : Colliders
         
     }
 
-
-    //IEnumerator FollowPath()
-    //{
-    //    Vector3 currentWaypoint = path[0];
-    //    while (true)
-    //    {
-    //        if (moveEnd)
-    //        {
-    //            moveEnd = false;
-    //            targetIndex++;
-    //            if (targetIndex >= path.Length)
-    //            {
-    //                targetIndex = 0;
-    //                yield break;
-    //            }
-    //            currentWaypoint = path[targetIndex];
-    //            //끝 지점까지 가면 종료
-
-    //            PlayableCharacter.Instance.AutoMove(currentWaypoint, MoveEnd);
-                
-    //        }
-
-            
-
-    //        yield return null;
-    //    }
-    //}
-
-    //public void MoveEnd()
-    //{
-    //    moveEnd = true;
-    //}
 
 }

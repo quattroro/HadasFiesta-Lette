@@ -553,7 +553,7 @@ public class CAttackComponent : BaseComponent
 
     public void IsAttackingEnd(string val)
     {
-        Debug.Log("[Attack] 공격 진짜 마지막 끝");
+        //Debug.Log("[Attack] 공격 진짜 마지막 끝");
         //Debug.Log("[Attack]attackend");
         curval.IsAttacking = false;
         LastMonsterIDList.Clear();

@@ -16,7 +16,7 @@ MonoBehaviour:
   - AttackType: 0
     SkillName: Skill01
     aniclip: {fileID: 7400000, guid: a0632667d891db6418244d408301848e, type: 2}
-    aniclipName: stk_sword08
+    aniclipName: atk_sword08
     animationPlaySpeed: 1
     StartDelay: 0
     RecoveryDelay: 2
@@ -36,7 +36,7 @@ MonoBehaviour:
   - AttackType: 1
     SkillName: Skill02
     aniclip: {fileID: 7400000, guid: 4b50c31dd5491274eb152eb523d84bd5, type: 2}
-    aniclipName: atk_evergy03
+    aniclipName: atk_energy03
     animationPlaySpeed: 1
     StartDelay: 0
     RecoveryDelay: 2

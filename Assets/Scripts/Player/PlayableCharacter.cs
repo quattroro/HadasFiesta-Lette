@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ using UnityEngine;
 ///1. 컴포넌트들 관리, 기존 ComponentManager가 하던 일을 그대로 실행
 ///2. 플레이어 데이터를 받아와서 각각의 컴포넌트 들에게 각각 필요한 데이터들을 넘겨준다.
 ///3. 각종 초기화, 연결 작업들
-///4. 외부에서 캐릭터의 변수에 접근이 필요할때 해당 클래스로바로 접근이 가능하도록
+///4. 외부에서 캐릭터의 변수에 접근이 필요할때 해당 클래스로바로 접근이 가능하도록 필드를 열어주는 작업을 한다.
 /////////////////////////////////////////////////////////////////////
 
 public class PlayableCharacter : MonoBehaviour
@@ -127,15 +128,21 @@ public class PlayableCharacter : MonoBehaviour
         //UI가 존재하지 않는 경우 UI객체를 로드해서 생성시켜 준다.
         if (CharacterUIPanel == null)
         {
-            //if (UIManager.Instance != null)
-            //    CharacterUIPanel = UIManager.Instance.Prefabsload(Global_Variable.CharVar.CharacterUI, Canvas_Enum.CANVAS_NUM.player_cavas).GetComponent<UICharacterInfoPanel>();
-            //else
-            //    CharacterUIPanel = GameMG.Instance.Resource.Instantiate<UICharacterInfoPanel>(Global_Variable.CharVar.CharacterUI);
-
-            if(UIManager.Instance==null)
-                CharacterUIPanel = ResourceCreateDeleteManager.Instance.InstantiateObj<UICharacterInfoPanel>(Global_Variable.CharVar.CharacterUI);
-            else
-                CharacterUIPanel = UIManager.Instance.Prefabsload(Global_Variable.CharVar.CharacterUI, Canvas_Enum.CANVAS_NUM.player_cavas).GetComponent<UICharacterInfoPanel>();
+            try
+            {
+                if (UIManager.Instance != null)
+                    CharacterUIPanel = UIManager.Instance.Prefabsload(Global_Variable.CharVar.CharacterUI, Canvas_Enum.CANVAS_NUM.player_cavas).GetComponent<UICharacterInfoPanel>();
+                else
+                    CharacterUIPanel = GameMG.Instance.Resource.Instantiate<UICharacterInfoPanel>(Global_Variable.CharVar.CharacterUI);
+            }
+            catch (Exception e)
+            {
+                //내가만든 부분
+                if (UIManager.Instance == null)
+                    CharacterUIPanel = ResourceCreateDeleteManager.Instance.InstantiateObj<UICharacterInfoPanel>(Global_Variable.CharVar.CharacterUI);
+                else
+                    CharacterUIPanel = UIManager.Instance.Prefabsload(Global_Variable.CharVar.CharacterUI, Canvas_Enum.CANVAS_NUM.player_cavas).GetComponent<UICharacterInfoPanel>();
+            }
 
         }
 
